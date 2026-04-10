@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "wrangler dev"
+    "start": "wrangler dev",
+    "test": "vitest run"
   },
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
@@ -31,20 +32,26 @@
     "react-router": "7.13.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/chrome": "^0.1.4",
     "@types/luxon": "^3.7.1",
     "@types/node": "^24.3.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.2",
+    "@vitest/ui": "4.1.4",
     "autoprefixer": "^10.4.21",
     "globals": "^16.3.0",
+    "jsdom": "^29.0.2",
     "postcss-prefix-selector": "^2.1.1",
     "postcss-scss": "^4.0.9",
     "sass": "^1.79.1",
     "typescript": "^5.9.3",
     "vite": "7.1.11",
     "vite-plugin-static-copy": "^3.1.2",
+    "vitest": "^4.1.4",
     "wrangler": "^4.79.0"
   }
 }

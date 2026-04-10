@@ -1,0 +1,221 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`YearProgress Component > matches the snapshot for Chinese locale 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root css-a2hjd7-MuiPaper-root-MuiCard-root"
+  >
+    <div
+      class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-10gwyqo-MuiTypography-root"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-1k3hahg-MuiSvgIcon-root"
+          data-testid="TrendingUpIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m16 6 2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+          />
+        </svg>
+        年度进度
+      </h2>
+      <div
+        class="MuiBox-root css-j11nnl"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-1wle3ir-MuiTypography-root"
+        >
+          2024
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-12ormm-MuiTypography-root"
+        >
+          45.6
+          %
+        </p>
+      </div>
+      <span
+        aria-valuemax="100"
+        aria-valuemin="0"
+        aria-valuenow="46"
+        class="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-determinate css-g6o2u6-MuiLinearProgress-root"
+        role="progressbar"
+      >
+        <span
+          class="MuiLinearProgress-bar MuiLinearProgress-bar1 MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate css-l16vtb-MuiLinearProgress-bar1"
+          style="transform: translateX(-54.4%);"
+        />
+      </span>
+      <div
+        class="MuiBox-root css-kgaz8t"
+      >
+        <div
+          class="MuiBox-root css-70qvj9"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-dcl34k-MuiSvgIcon-root"
+            data-testid="CalendarTodayIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 18H4V8h16z"
+            />
+          </svg>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+          >
+            本年第几天
+            : 
+            <b>
+              167
+            </b>
+             / 
+            366
+          </p>
+        </div>
+        <div
+          class="MuiBox-root css-70qvj9"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-dcl34k-MuiSvgIcon-root"
+            data-testid="DateRangeIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"
+            />
+          </svg>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+          >
+            本年第几周
+            : 
+            <b>
+              24
+            </b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`YearProgress Component > matches the snapshot for English locale 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root css-a2hjd7-MuiPaper-root-MuiCard-root"
+  >
+    <div
+      class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-10gwyqo-MuiTypography-root"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-1k3hahg-MuiSvgIcon-root"
+          data-testid="TrendingUpIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m16 6 2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+          />
+        </svg>
+        Year Progress
+      </h2>
+      <div
+        class="MuiBox-root css-j11nnl"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-1wle3ir-MuiTypography-root"
+        >
+          2024
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-12ormm-MuiTypography-root"
+        >
+          45.6
+          %
+        </p>
+      </div>
+      <span
+        aria-valuemax="100"
+        aria-valuemin="0"
+        aria-valuenow="46"
+        class="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-determinate css-g6o2u6-MuiLinearProgress-root"
+        role="progressbar"
+      >
+        <span
+          class="MuiLinearProgress-bar MuiLinearProgress-bar1 MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate css-l16vtb-MuiLinearProgress-bar1"
+          style="transform: translateX(-54.4%);"
+        />
+      </span>
+      <div
+        class="MuiBox-root css-kgaz8t"
+      >
+        <div
+          class="MuiBox-root css-70qvj9"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-dcl34k-MuiSvgIcon-root"
+            data-testid="CalendarTodayIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 18H4V8h16z"
+            />
+          </svg>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+          >
+            Day of Year
+            : 
+            <b>
+              167
+            </b>
+             / 
+            366
+          </p>
+        </div>
+        <div
+          class="MuiBox-root css-70qvj9"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-dcl34k-MuiSvgIcon-root"
+            data-testid="DateRangeIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"
+            />
+          </svg>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+          >
+            Week Number
+            : 
+            <b>
+              24
+            </b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

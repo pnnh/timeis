@@ -5,6 +5,11 @@ import {viteStaticCopy} from "vite-plugin-static-copy";
  
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
+    test: {
+        globals: true,
+        environment: "jsdom",
+        setupFiles: "./src/setupTests.ts",
+    },
     resolve: {
         alias: [
             {find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url))},
