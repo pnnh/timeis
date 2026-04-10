@@ -4,6 +4,8 @@ import React from 'react'
 import { css } from "@emotion/css";
 import { transKey } from '@/locales/normal';
 import { TimestampHelper } from './timestamp';
+import { YearProgress } from './yearProgress';
+import { DateCalculator } from './dateCalc';
 import { Card, CardContent, Typography, Box, Grid, Paper } from '@mui/material';
 import { AccessTime, CalendarMonth } from '@mui/icons-material';
 
@@ -58,6 +60,8 @@ export default function DatetimeComponent({ lang }: { lang: string }) {
             </Grid>
         </Grid>
 
+        <YearProgress lang={lang} />
+        <DateCalculator lang={lang} />
         <TimestampHelper lang={lang} />
     </div>
 }

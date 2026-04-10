@@ -223,5 +223,56 @@ export const TransTexts: {
         "de-DE": "Aktuelles Datum und Uhrzeit",
         "pt-PT": "Data e hora atuais",
         "zh-TW": "當前日期時間"
+    },
+    // Year Progress Tool
+    "datetime.yearProgress.title": {
+        "zh": "年度进度", "en": "Year Progress", "es": "Progreso del año", "fr": "Progression de l'année", "ja": "年間の進捗", "de-DE": "Jahresfortschritt", "pt-PT": "Progresso do ano", "zh-TW": "年度進度"
+    },
+    "datetime.yearProgress.dayOfYear": {
+        "zh": "本年第几天", "en": "Day of Year", "es": "Día del año", "fr": "Jour de l'année", "ja": "その年の日", "de-DE": "Tag des Jahres", "pt-PT": "Dia do ano", "zh-TW": "本年第幾天"
+    },
+    "datetime.yearProgress.weekNumber": {
+        "zh": "本年第几周", "en": "Week Number", "es": "Número de semana", "fr": "Numéro de semaine", "ja": "週番号", "de-DE": "Wochennummer", "pt-PT": "Número da semana", "zh-TW": "本年第幾周"
+    },
+    
+    // Date Calculator Tool
+    "datetime.calculator.title": {
+        "zh": "日期计算器", "en": "Date Calculator", "es": "Calculadora de fechas", "fr": "Calculatrice de date", "ja": "日付計算機", "de-DE": "Datumsrechner", "pt-PT": "Calculadora de data", "zh-TW": "日期計算器"
+    },
+    "datetime.calculator.tab.diff": {
+        "zh": "计算日期差", "en": "Date Difference", "es": "Diferencia de fechas", "fr": "Différence de date", "ja": "日付の差", "de-DE": "Datumsdifferenz", "pt-PT": "Diferença de datas", "zh-TW": "計算日期差"
+    },
+    "datetime.calculator.tab.math": {
+        "zh": "日期推算", "en": "Add/Subtract Dates", "es": "Sumar/Restar Fechas", "fr": "Ajouter/Soustraire des dates", "ja": "日付の加算/減算", "de-DE": "Daten addieren/subtrahieren", "pt-PT": "Adicionar/Subtrair datas", "zh-TW": "日期推算"
+    },
+    "datetime.calculator.startDate": {
+        "zh": "开始日期", "en": "Start Date", "es": "Fecha de inicio", "fr": "Date de début", "ja": "開始日", "de-DE": "Startdatum", "pt-PT": "Data de início", "zh-TW": "開始日期"
+    },
+    "datetime.calculator.endDate": {
+        "zh": "结束日期", "en": "End Date", "es": "Fecha de finalización", "fr": "Date de fin", "ja": "終了日", "de-DE": "Enddatum", "pt-PT": "Data de término", "zh-TW": "結束日期"
+    },
+    "datetime.calculator.calculate": {
+        "zh": "计算", "en": "Calculate", "es": "Calcular", "fr": "Calculer", "ja": "計算する", "de-DE": "Berechnen", "pt-PT": "Calcular", "zh-TW": "計算"
+    },
+    "datetime.calculator.days": {
+        "zh": "天", "en": "Days", "es": "Días", "fr": "Jours", "ja": "日", "de-DE": "Tage", "pt-PT": "Dias", "zh-TW": "天"
+    },
+    "datetime.calculator.before": {
+        "zh": "前", "en": "Before", "es": "Antes", "fr": "Avant", "ja": "前", "de-DE": "Vorher", "pt-PT": "Antes", "zh-TW": "前"
+    },
+    "datetime.calculator.baseDate": {
+        "zh": "基准日期", "en": "Base Date", "es": "Fecha base", "fr": "Date de base", "ja": "基準日", "de-DE": "Basisdatum", "pt-PT": "Data base", "zh-TW": "基準日期"
+    },
+    "datetime.calculator.years": {
+        "zh": "年", "en": "Years", "es": "Años", "fr": "Années", "ja": "年", "de-DE": "Jahre", "pt-PT": "Anos", "zh-TW": "年"
+    },
+    "datetime.calculator.months": {
+        "zh": "月", "en": "Months", "es": "Meses", "fr": "Mois", "ja": "月", "de-DE": "Monate", "pt-PT": "Meses", "zh-TW": "月"
+    },
+    "datetime.calculator.weeks": {
+        "zh": "周", "en": "Weeks", "es": "Semanas", "fr": "Semaines", "ja": "週", "de-DE": "Wochen", "pt-PT": "Semanas", "zh-TW": "周"
+    },
+    "datetime.calculator.resultDate": {
+        "zh": "结果日期", "en": "Result Date", "es": "Fecha de resultado", "fr": "Date de résultat", "ja": "結果の日付", "de-DE": "Ergebnisdatum", "pt-PT": "Data do resultado", "zh-TW": "結果日期"
     }
 }
