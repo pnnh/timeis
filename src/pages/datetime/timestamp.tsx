@@ -2,7 +2,14 @@
 
 import { transKey } from "@/locales/normal";
 import { css } from "@emotion/css";
-import React from "react"; 
+import React, { useState, useEffect } from "react"; 
+import { 
+    Tabs, Tab as MuiTab, Box, TextField, 
+    Typography, IconButton, 
+    Tooltip, Paper 
+} from "@mui/material";
+import { ContentCopy, Check } from "@mui/icons-material";
+import { copyToClipboard } from "@/utils/clipboard";
 
 enum Tab {
     GenTimestamp,
@@ -12,296 +19,206 @@ enum Tab {
 
 export function TimestampHelper({lang}: { lang: string }) {
     const [tab, setTab] = React.useState<Tab>(Tab.GenTimestamp)
+    
+    const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+        setTab(newValue);
+    };
+
     return <div className={timestampStyles.timestampHelper}>
         <div className={timestampStyles.helperContainer}>
-            <div className={timestampStyles.tabContainer}>
-                <div className={`${timestampStyles.tabItem} ${tab === Tab.GenTimestamp ? timestampStyles.active : ''}`}
-                     onClick={() => setTab(Tab.GenTimestamp)}>
-                    {transKey(lang, 'timestamp.tab.genTimestamp')}
-                </div>
-                <div
-                    className={`${timestampStyles.tabItem} ${tab === Tab.TimestampToDatetime ? timestampStyles.active : ''}`}
-                    onClick={() => setTab(Tab.TimestampToDatetime)}>
-                    {transKey(lang, "timestamp.tab.timestampToDatetime")}
-                </div>
-                <div
-                    className={`${timestampStyles.tabItem} ${tab === Tab.DatetimeToTimestamp ? timestampStyles.active : ''}`}
-                    onClick={() => setTab(Tab.DatetimeToTimestamp)}>
-                    {transKey(lang, "timestamp.tab.datetimeToTimestamp")}
-                </div>
-            </div>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
+                <Tabs value={tab} onChange={handleTabChange} aria-label="timestamp tabs" variant="fullWidth">
+                    <MuiTab label={transKey(lang, 'timestamp.tab.genTimestamp')} value={Tab.GenTimestamp} />
+                    <MuiTab label={transKey(lang, "timestamp.tab.timestampToDatetime")} value={Tab.TimestampToDatetime} />
+                    <MuiTab label={transKey(lang, "timestamp.tab.datetimeToTimestamp")} value={Tab.DatetimeToTimestamp} />
+                </Tabs>
+            </Box>
             <div className={timestampStyles.bodyContainer}>
                 {
-                    tab === Tab.GenTimestamp && <GenTimestamp/>
+                    tab === Tab.GenTimestamp && <Box sx={{ mb: 4 }} />
                 }
                 {
-                    tab === Tab.TimestampToDatetime && <TimestampToDatetime/>
+                    tab === Tab.TimestampToDatetime && <TimestampToDatetimeConverter lang={lang}/>
                 }
                 {
-                    tab === Tab.DatetimeToTimestamp && <DatetimeToTimestamp/>
+                    tab === Tab.DatetimeToTimestamp && <DatetimeToTimestampConverter lang={lang}/>
                 }
+                
+                <Box sx={{ mt: 4 }}>
+                    <Typography variant="h6" gutterBottom sx={{ mt: 4, mb: 2 }}>
+                        {tab === Tab.GenTimestamp ? "How to get current timestamp" : "Programming Reference"}
+                    </Typography>
+                    {tab === Tab.GenTimestamp && <GenTimestampCode />}
+                    {tab === Tab.TimestampToDatetime && <TimestampToDatetimeCode />}
+                    {tab === Tab.DatetimeToTimestamp && <DatetimeToTimestampCode />}
+                </Box>
             </div>
         </div>
     </div>
 }
 
-function GenTimestamp() {
+function CopyButton({ text, lang }: { text: string, lang: string }) {
+    const [copied, setCopied] = useState(false);
+    const handleCopy = () => {
+        copyToClipboard(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+        <Tooltip title={copied ? transKey(lang, "common.copied") : transKey(lang, "common.copy")}>
+            <IconButton onClick={handleCopy} size="small">
+                {copied ? <Check fontSize="small" color="success" /> : <ContentCopy fontSize="small" />}
+            </IconButton>
+        </Tooltip>
+    );
+}
+
+function TimestampToDatetimeConverter({ lang }: { lang: string }) {
+    const [input, setInput] = useState(Math.floor(Date.now() / 1000).toString());
+    const [result, setResult] = useState({ local: '', utc: '' });
+
+    useEffect(() => {
+        try {
+            const val = parseInt(input);
+            if (isNaN(val)) return;
+            
+            const date = input.length > 11 ? new Date(val) : new Date(val * 1000);
+            
+            if (!isNaN(date.getTime())) {
+                setResult({
+                    local: date.toLocaleString(),
+                    utc: date.toUTCString()
+                });
+            }
+        } catch (e) {
+            // ignore
+        }
+    }, [input]);
+
+    return (
+        <Paper elevation={0} variant="outlined" sx={{ p: 3, mb: 3 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <TextField
+                    fullWidth
+                    label={transKey(lang, "timestamp.input.label")}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    helperText={input.length > 11 ? transKey(lang, "timestamp.unit.milliseconds") : transKey(lang, "timestamp.unit.seconds")}
+                />
+                
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1, bgcolor: 'action.hover', borderRadius: 1 }}>
+                    <Box>
+                        <Typography variant="caption" color="text.secondary">{transKey(lang, "timestamp.result.local")}</Typography>
+                        <Typography variant="body1" sx={{ fontWeight: 'medium' }}>{result.local}</Typography>
+                    </Box>
+                    <CopyButton text={result.local} lang={lang} />
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1, bgcolor: 'action.hover', borderRadius: 1 }}>
+                    <Box>
+                        <Typography variant="caption" color="text.secondary">{transKey(lang, "timestamp.result.utc")}</Typography>
+                        <Typography variant="body1" sx={{ fontWeight: 'medium' }}>{result.utc}</Typography>
+                    </Box>
+                    <CopyButton text={result.utc} lang={lang} />
+                </Box>
+            </Box>
+        </Paper>
+    );
+}
+
+function DatetimeToTimestampConverter({ lang }: { lang: string }) {
+    const [input, setInput] = useState(new Date().toLocaleString().replace(/\//g, '-'));
+    const [result, setResult] = useState({ s: '', ms: '' });
+
+    useEffect(() => {
+        try {
+            const date = new Date(input);
+            if (!isNaN(date.getTime())) {
+                setResult({
+                    s: Math.floor(date.getTime() / 1000).toString(),
+                    ms: date.getTime().toString()
+                });
+            }
+        } catch (e) {
+            // ignore
+        }
+    }, [input]);
+
+    return (
+        <Paper elevation={0} variant="outlined" sx={{ p: 3, mb: 3 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <TextField
+                    fullWidth
+                    label={transKey(lang, "datetime.input.label")}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="YYYY-MM-DD HH:mm:ss"
+                />
+                
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1, bgcolor: 'action.hover', borderRadius: 1 }}>
+                    <Box>
+                        <Typography variant="caption" color="text.secondary">{transKey(lang, "timestamp.unit.seconds")}</Typography>
+                        <Typography variant="body1" sx={{ fontWeight: 'medium', fontFamily: 'monospace' }}>{result.s}</Typography>
+                    </Box>
+                    <CopyButton text={result.s} lang={lang} />
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1, bgcolor: 'action.hover', borderRadius: 1 }}>
+                    <Box>
+                        <Typography variant="caption" color="text.secondary">{transKey(lang, "timestamp.unit.milliseconds")}</Typography>
+                        <Typography variant="body1" sx={{ fontWeight: 'medium', fontFamily: 'monospace' }}>{result.ms}</Typography>
+                    </Box>
+                    <CopyButton text={result.ms} lang={lang} />
+                </Box>
+            </Box>
+        </Paper>
+    );
+}
+
+function GenTimestampCode() {
     return <div className={timestampStyles.helpTable}>
         <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Java
-            </div>
-            <div className={timestampStyles.tableCell}>time
-            </div>
+            <div className={timestampStyles.tableLabel}>Java</div>
+            <div className={timestampStyles.tableCell}>System.currentTimeMillis() / 1000</div>
         </div>
         <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>JavaScript
-            </div>
-            <div className={timestampStyles.tableCell}>
-                <code>
-                    Math.round(new Date().getTime()/1000)<br/>
-                    <span>getTime()</span>
-                </code>
-            </div>
+            <div className={timestampStyles.tableLabel}>JavaScript</div>
+            <div className={timestampStyles.tableCell}><code>Math.round(new Date().getTime()/1000)</code></div>
         </div>
         <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Microsoft .NET / C#
-            </div>
-            <div className={timestampStyles.tableCell}>epoch = (DateTime.Now.ToUniversalTime().Ticks -
-                621355968000000000) /
-                10000000
-            </div>
+            <div className={timestampStyles.tableLabel}>Python</div>
+            <div className={timestampStyles.tableCell}>import time; time.time()</div>
         </div>
         <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>MySQL
-            </div>
-            <div className={timestampStyles.tableCell}>SELECT unix_timestamp(now())
-            </div>
+            <div className={timestampStyles.tableLabel}>Go</div>
+            <div className={timestampStyles.tableCell}>import "time"; time.Now().Unix()</div>
         </div>
         <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Perl
-            </div>
-            <div className={timestampStyles.tableCell}>time
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>PHP
-            </div>
-            <div className={timestampStyles.tableCell}>time()
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>PostgreSQL
-            </div>
-            <div className={timestampStyles.tableCell}>SELECT extract(epoch FROM now())
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Python
-            </div>
-            <div className={timestampStyles.tableCell}>import time<br/>time.time()
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Ruby
-            </div>
-            <div className={timestampStyles.tableCell}>
-                Time.now.to_i
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Go
-            </div>
-            <div className={timestampStyles.tableCell}>import time<br/>int32(time.Now().Unix())
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>SQL Server
-            </div>
-            <div className={timestampStyles.tableCell}>SELECT DATEDIFF(s, '1970-01-01 00:00:00', GETUTCDATE())
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Unix / Linux
-            </div>
-            <div className={timestampStyles.tableCell}>date +%s
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>VBScript / ASP
-            </div>
-            <div className={timestampStyles.tableCell}>DateDiff("s", "01/01/1970 00:00:00", Now())
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>
-                Perl
-            </div>
-            <div className={timestampStyles.tableCell}>perl -e "print time"
-            </div>
+            <div className={timestampStyles.tableLabel}>MySQL</div>
+            <div className={timestampStyles.tableCell}>SELECT unix_timestamp(now())</div>
         </div>
     </div>
 }
 
-function TimestampToDatetime() {
+function TimestampToDatetimeCode() {
     return <div className={timestampStyles.helpTable}>
         <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Java
-            </div>
-            <div className={timestampStyles.tableCell}><code>String date = new java.text.SimpleDateFormat("dd/MM/yyyy
-                HH:mm:ss").format(new java.util.Date(Unix timestamp * 1000))</code>
-            </div>
+            <div className={timestampStyles.tableLabel}>Java</div>
+            <div className={timestampStyles.tableCell}><code>new java.util.Date(timestamp * 1000)</code></div>
         </div>
         <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>JavaScript
-            </div>
-            <div className={timestampStyles.tableCell}><code>var unixTimestamp = new Date(Unix timestamp *
-                1000)<br/>commonTime = unixTimestamp.toLocaleString()</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Linux
-            </div>
-            <div className={timestampStyles.tableCell}><code>date -d @Unix timestamp</code></div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>MySQL
-            </div>
-            <div className={timestampStyles.tableCell}><code>from_unixtime(Unix timestamp)</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Perl
-            </div>
-            <div className={timestampStyles.tableCell}><code>my $time = Unix timestamp <br/> my
-                ($sec, $min, $hour, $day, $month, $year) = (localtime($time))[0,1,2,3,4,5,6]
-            </code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>PHP
-            </div>
-            <div className={timestampStyles.tableCell}><code>date('r', Unix timestamp)</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>PostgreSQL
-            </div>
-            <div className={timestampStyles.tableCell}><code>SELECT TIMESTAMP WITH TIME ZONE 'epoch' + Unix timestamp) *
-                INTERVAL '1 second';</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Python
-            </div>
-            <div className={timestampStyles.tableCell}><code>import time <br/> time.gmtime(Unix
-                timestamp)</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Ruby
-            </div>
-            <div className={timestampStyles.tableCell}><code>Time.at(Unix timestamp)</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>SQL Server
-            </div>
-            <div className={timestampStyles.tableCell}><code>DATEADD(s, Unix timestamp, '1970-01-01 00:00:00')</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>VBScript / ASP
-            </div>
-            <div className={timestampStyles.tableCell}><code>DateAdd("s", Unix timestamp, "01/01/1970 00:00:00")</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>
-                Perl
-            </div>
-            <div className={timestampStyles.tableCell}>
-                <code>perl -e "print scalar(localtime(Unix
-                    timestamp))"</code>
-            </div>
+            <div className={timestampStyles.tableLabel}>JavaScript</div>
+            <div className={timestampStyles.tableCell}><code>new Date(timestamp * 1000).toLocaleString()</code></div>
         </div>
     </div>
 }
 
-function DatetimeToTimestamp() {
+function DatetimeToTimestampCode() {
     return <div className={timestampStyles.helpTable}>
         <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Java
-            </div>
-            <div className={timestampStyles.tableCell}><code>long epoch = new java.text.SimpleDateFormat("dd/MM/yyyy
-                HH:mm:ss").parse("01/01/1970 01:00:00");</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>JavaScript
-            </div>
-            <div className={timestampStyles.tableCell}><code>var commonTime = new Date(Date.UTC(year, month - 1, day,
-                hour, minute, second))</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>MySQL
-            </div>
-            <div className={timestampStyles.tableCell}><code>
-                SELECT unix_timestamp(time)</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Perl
-            </div>
-            <div className={timestampStyles.tableCell}><code>use Time::Local <br/> my $time =
-                timelocal($sec, $min, $hour, $day, $month, $year);</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>PHP
-            </div>
-            <div className={timestampStyles.tableCell}><code>mktime(hour, minute, second, month,
-                day, year)</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>PostgreSQL
-            </div>
-            <div className={timestampStyles.tableCell}><code>SELECT extract(epoch FROM date('YYYY-MM-DD
-                HH:MM:SS'));</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Python
-            </div>
-            <div className={timestampStyles.tableCell}><code>import time<br/>
-                int(time.mktime(time.strptime('YYYY-MM-DD HH:MM:SS', '%Y-%m-%d %H:%M:%S')))</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Ruby
-            </div>
-            <div className={timestampStyles.tableCell}><code>Time.local(year, month, day, hour, minute,
-                second)</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>SQL Server
-            </div>
-            <div className={timestampStyles.tableCell}><code>SELECT DATEDIFF(s, '1970-01-01 00:00:00', time)</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>Unix / Linux
-            </div>
-            <div className={timestampStyles.tableCell}><code>date +%s -d"Jan 1, 1970 00:00:01"</code>
-            </div>
-        </div>
-        <div className={timestampStyles.tableRow}>
-            <div className={timestampStyles.tableLabel}>VBScript / ASP
-            </div>
-            <div className={timestampStyles.tableCell}><code>DateDiff("s", "01/01/1970 00:00:00", time)</code>
-            </div>
+            <div className={timestampStyles.tableLabel}>JavaScript</div>
+            <div className={timestampStyles.tableCell}><code>Math.round(new Date('2022-01-01').getTime() / 1000)</code></div>
         </div>
     </div>
 }
@@ -314,50 +231,30 @@ const timestampStyles = {
         width: 100%;
         margin-bottom: 2rem;
     `,
-    tabContainer: css`
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        margin-bottom: 1rem;
-    `,
-    tabItem: css`
-        padding: 0.5rem;
-        border-bottom: none;
-        cursor: pointer;
-    `,
-    active: css`
-        border-bottom: 2px solid #333;
-    `,
     bodyContainer: css``,
     helpTable: css`
         width: 100%;
-        padding: 0;
         display: table;
-        border-top: 0.5px solid #f0f0f0;
-        border-left: 0.5px solid #f0f0f0;
-        border-right: 0.5px solid #f0f0f0;
+        border: 1px solid var(--divider-color, #f0f0f0);
     `,
     tableRow: css`
-        padding: 0;
-        text-align: left;
         display: table-row;
     `,
     tableLabel: css`
-        font-weight: normal;
-        font-size: 0.9rem;
+        font-weight: bold;
+        font-size: 0.85rem;
         display: table-cell;
-        width: 10rem;
-        background-color: #fafafa;
-        border-bottom: 0.5px solid #f0f0f0;
-        border-right: 0.5px solid #f0f0f0;
-        padding: 0.5rem;
+        width: 8rem;
+        background-color: var(--action-hover, #fafafa);
+        border-bottom: 1px solid var(--divider-color, #f0f0f0);
+        border-right: 1px solid var(--divider-color, #f0f0f0);
+        padding: 0.75rem;
     `,
     tableCell: css`
-        padding: 0.5rem;
+        padding: 0.75rem;
         display: table-cell;
-        border-bottom: 0.5px solid #f0f0f0;
-        font-size: 0.9rem;
-        color: #333;
+        border-bottom: 1px solid var(--divider-color, #f0f0f0);
+        font-size: 0.85rem;
+        font-family: monospace;
     `
 }
-

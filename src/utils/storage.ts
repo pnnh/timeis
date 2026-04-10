@@ -1,3 +1,6 @@
+import { atom } from 'jotai';
+
+export const themeAtom = atom<'light' | 'dark' | 'auto'>('auto');
 
 export function setStorage(key: string, value: any) {
     localStorage.setItem(key, JSON.stringify(value))

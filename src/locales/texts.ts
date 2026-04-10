@@ -1,4 +1,4 @@
-import {LangTextValue} from "./language";
+import { LangTextValue } from "./language";
 
 export const TransTexts: {
     [key: string]: LangTextValue
@@ -32,7 +32,7 @@ export const TransTexts: {
         "de-DE": "Dunkel",
         "pt-PT": "Escuro",
         "zh-TW": "深色"
-    }, 
+    },
     "tools.common.inputPlaceholder": {
         "zh": "请输入需要编码的文本",
         "en": "Please enter the text to be encoded",
@@ -104,6 +104,96 @@ export const TransTexts: {
         "pt-PT": "Data e hora para carimbo de data/hora",
         "zh-TW": "日期時間轉時間戳"
     },
+    "timestamp.input.label": {
+        "zh": "时间戳",
+        "en": "Timestamp",
+        "es": "Marca de tiempo",
+        "fr": "Horodatage",
+        "ja": "タイムスタンプ",
+        "de-DE": "Zeitstempel",
+        "pt-PT": "Carimbo de data/hora",
+        "zh-TW": "時間戳"
+    },
+    "timestamp.unit.seconds": {
+        "zh": "秒 (s)",
+        "en": "Seconds (s)",
+        "es": "Segundos (s)",
+        "fr": "Secondes (s)",
+        "ja": "秒 (s)",
+        "de-DE": "Sekunden (s)",
+        "pt-PT": "Segundos (s)",
+        "zh-TW": "秒 (s)"
+    },
+    "timestamp.unit.milliseconds": {
+        "zh": "毫秒 (ms)",
+        "en": "Milliseconds (ms)",
+        "es": "Milisegundos (ms)",
+        "fr": "Millisecondes (ms)",
+        "ja": "ミリ秒 (ms)",
+        "de-DE": "Millisekunden (ms)",
+        "pt-PT": "Milissegundos (ms)",
+        "zh-TW": "毫秒 (ms)"
+    },
+    "timestamp.result.local": {
+        "zh": "本地时间",
+        "en": "Local Time",
+        "es": "Hora local",
+        "fr": "Heure locale",
+        "ja": "現地時間",
+        "de-DE": "Ortszeit",
+        "pt-PT": "Hora local",
+        "zh-TW": "本地時間"
+    },
+    "timestamp.result.utc": {
+        "zh": "UTC 时间",
+        "en": "UTC Time",
+        "es": "Hora UTC",
+        "fr": "Heure UTC",
+        "ja": "UTC 時間",
+        "de-DE": "UTC-Zeit",
+        "pt-PT": "Hora UTC",
+        "zh-TW": "UTC 時間"
+    },
+    "datetime.input.label": {
+        "zh": "日期时间",
+        "en": "Datetime",
+        "es": "Fecha y hora",
+        "fr": "Date et heure",
+        "ja": "日時",
+        "de-DE": "Datum und Uhrzeit",
+        "pt-PT": "Data e hora",
+        "zh-TW": "日期時間"
+    },
+    "common.copy": {
+        "zh": "复制",
+        "en": "Copy",
+        "es": "Copiar",
+        "fr": "Copier",
+        "ja": "コピー",
+        "de-DE": "Kopieren",
+        "pt-PT": "Copiar",
+        "zh-TW": "複製"
+    },
+    "common.copied": {
+        "zh": "已复制",
+        "en": "Copied",
+        "es": "Copiado",
+        "fr": "Copié",
+        "ja": "コピーしました",
+        "de-DE": "Kopiert",
+        "pt-PT": "Copiado",
+        "zh-TW": "已複製"
+    },
+    "datetime.to.timestamp": {
+        "zh": "日期时间转时间戳",
+        "en": "Datetime to Timestamp",
+        "es": "De fecha y hora a marca de tiempo",
+        "fr": "Date et heure en horodatage",
+        "ja": "日付と時刻からタイムスタンプへ",
+        "de-DE": "Datum und Uhrzeit zu Zeitstempel",
+        "pt-PT": "Data e hora para carimbo de data/hora",
+        "zh-TW": "日期時間轉時間戳"
+    },
     "datetime.page.title": {
         "zh": "日期时间工具",
         "en": "Datetime Tool",
@@ -114,7 +204,6 @@ export const TransTexts: {
         "pt-PT": "Ferramenta de data e hora",
         "zh-TW": "日期時間工具"
     },
-
     "datetime.page.currentTimestamp": {
         "zh": "当前时间戳",
         "en": "Current Timestamp",
@@ -134,5 +223,5 @@ export const TransTexts: {
         "de-DE": "Aktuelles Datum und Uhrzeit",
         "pt-PT": "Data e hora atuais",
         "zh-TW": "當前日期時間"
-    }, 
+    }
 }

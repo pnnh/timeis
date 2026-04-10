@@ -1,11 +1,13 @@
 'use client'
 
-import React from 'react' 
-import {css} from "@emotion/css";
+import React from 'react'
+import { css } from "@emotion/css";
 import { transKey } from '@/locales/normal';
 import { TimestampHelper } from './timestamp';
+import { Card, CardContent, Typography, Box, Grid, Paper } from '@mui/material';
+import { AccessTime, CalendarMonth } from '@mui/icons-material';
 
-export default function DatetimeComponent({lang}: { lang: string }) {
+export default function DatetimeComponent({ lang }: { lang: string }) {
     const [now, setNow] = React.useState<Date | undefined>()
     const [timestamp, setTimestamp] = React.useState<number>(0)
 
@@ -17,21 +19,46 @@ export default function DatetimeComponent({lang}: { lang: string }) {
         }, 1000)
         return () => clearInterval(interval)
     }, [])
+
     return <div className={datetimeStyles.datetimeComponent}>
-        <h1 className={datetimeStyles.pageTitle}>{transKey(lang, "datetime.page.title")}</h1>
-        <div className={datetimeStyles.timestampTable}>
-            <div className={datetimeStyles.tableRow}>
-                <div className={datetimeStyles.rowLabel}>{transKey(lang, "datetime.page.currentDatetime")}
-                </div>
-                <div className={datetimeStyles.tableCell}>{now?.toLocaleString()}</div>
-            </div>
-            <div className={datetimeStyles.tableRow}>
-                <div className={datetimeStyles.rowLabel}>{transKey(lang, "datetime.page.currentTimestamp")}
-                </div>
-                <div className={datetimeStyles.tableCell}>{timestamp}</div>
-            </div>
-        </div>
-        <TimestampHelper lang={lang}/>
+        <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
+            {transKey(lang, "datetime.page.title")}
+        </Typography>
+
+        <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
+            <Grid size={{ xs: 12, md: 6 }}>
+                <Card variant="outlined">
+                    <CardContent>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                            <CalendarMonth color="primary" sx={{ mr: 1 }} />
+                            <Typography variant="subtitle2" color="text.secondary">
+                                {transKey(lang, "datetime.page.currentDatetime")}
+                            </Typography>
+                        </Box>
+                        <Typography variant="h5" sx={{ fontFamily: 'monospace' }}>
+                            {now?.toLocaleString()}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+                <Card variant="outlined">
+                    <CardContent>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                            <AccessTime color="primary" sx={{ mr: 1 }} />
+                            <Typography variant="subtitle2" color="text.secondary">
+                                {transKey(lang, "datetime.page.currentTimestamp")}
+                            </Typography>
+                        </Box>
+                        <Typography variant="h5" sx={{ fontFamily: 'monospace' }}>
+                            {timestamp}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Grid>
+        </Grid>
+
+        <TimestampHelper lang={lang} />
     </div>
 }
 
