@@ -15,9 +15,7 @@ export default function DatetimePage( ) {
         return <NotFoundPage/>
     }
     return <ToolsLayout lang={lang}>
-        <div className={pageStyles.md5Page}>
-            <h1 className={pageStyles.productTitle}>{transKey(lang, "datetime.page.title")}</h1>
-            
+        <div className={pageStyles.md5Page}> 
             <DatetimeComponent lang={lang}/>
         </div>
     </ToolsLayout>

@@ -3,13 +3,11 @@ import {css} from "@emotion/css";
 export const langEnUS = 'en'
 export const langEsES = 'es' // Spanish
 export const langFrFR = 'fr' // French
-export const langDeDE = 'de-DE' // German
 export const langJaJP = 'ja' // Japanese
-export const langPtPT = 'pt-PT' // Portuguese
-export const langZhCN = 'zh'
-export const langZhTW = 'zh-TW' // Traditional Chinese
+export const langPtPT = 'pt' // Portuguese
+export const langZhCN = 'zh' 
 export type LangKeyType = typeof langEnUS | typeof langEsES | typeof langFrFR | typeof langJaJP |
-    typeof langZhCN | typeof langDeDE | typeof langPtPT | typeof langZhTW
+    typeof langZhCN | typeof langPtPT
 
 export type LangTextValue = {
     [key in LangKeyType]: string
@@ -29,9 +27,6 @@ export const supportedLanguages = [
         key: langFrFR, name: 'Français'
     },
     {
-        key: langDeDE, name: 'Deutsch'
-    },
-    {
         key: langPtPT, name: 'Português'
     },
     {
@@ -39,10 +34,7 @@ export const supportedLanguages = [
     },
     {
         key: langZhCN, name: '简体中文'
-    },
-    {
-        key: langZhTW, name: '繁體中文'
-    },
+    }, 
 ]
 
 const styles = {

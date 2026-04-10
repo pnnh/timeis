@@ -1,4 +1,4 @@
-import {langDeDE, langEsES, langFrFR, langJaJP, langPtPT, langZhCN, langZhTW} from "./language"
+import {langEsES, langFrFR, langJaJP, langPtPT, langZhCN} from "./language"
 import {TransTexts} from "./texts";
 
 export function transKey(lang: string, keyName: keyof typeof TransTexts): string {
@@ -15,12 +15,8 @@ export function transKey(lang: string, keyName: keyof typeof TransTexts): string
             return langText.es
         case langFrFR:
             return langText.fr
-        case langDeDE:
-            return langText["de-DE"]
         case langPtPT:
-            return langText["pt-PT"]
-        case langZhTW:
-            return langText["zh-TW"]
+            return langText.pt
     }
     // Fallback to English
     return langText.en

@@ -46,9 +46,6 @@ export function PSLanguageSelector({lang}:{lang:string}) {
             }}
             anchorEl={anchorEl}
             open={open}>
-            <MenuItem onClick={() => goUrl('auto')} disableRipple>
-                Auto
-            </MenuItem>
             {
                 supportedLanguages.map(language => (
                     <MenuItem key={language.key} onClick={() => goUrl(language.key)} disableRipple>

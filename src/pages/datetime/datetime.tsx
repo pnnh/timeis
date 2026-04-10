@@ -6,30 +6,35 @@ import { transKey } from '@/locales/normal';
 import { TimestampHelper } from './timestamp';
 import { YearProgress } from './yearProgress';
 import { DateCalculator } from './dateCalc';
+import { WorldClock } from './worldClock';
+import { LunarCalendar } from './lunarCalendar';
 import { Card, CardContent, Typography, Box, Grid, Paper } from '@mui/material';
 import { AccessTime, CalendarMonth } from '@mui/icons-material';
 
 export default function DatetimeComponent({ lang }: { lang: string }) {
     const [now, setNow] = React.useState<Date | undefined>()
-    const [timestamp, setTimestamp] = React.useState<number>(0)
+    const [timestamp, setTimestamp] = React.useState<number | undefined>()
 
     React.useEffect(() => {
-        const interval = setInterval(() => {
-            const now = new Date()
-            setNow(now)
-            setTimestamp(Math.floor(now.getTime() / 1000))
-        }, 1000)
+        // Initialize immediately
+        const updateTime = () => {
+            const currentDate = new Date()
+            setNow(currentDate)
+            setTimestamp(Math.floor(currentDate.getTime() / 1000))
+        }
+        updateTime()
+        const interval = setInterval(updateTime, 1000)
         return () => clearInterval(interval)
     }, [])
 
     return <div className={datetimeStyles.datetimeComponent}>
-        <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold', margin: '1rem' }}>
             {transKey(lang, "datetime.page.title")}
         </Typography>
 
         <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
             <Grid size={{ xs: 12, md: 6 }}>
-                <Card variant="outlined">
+                <Card variant="outlined" sx={{ height: '100%' }}>
                     <CardContent>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                             <CalendarMonth color="primary" sx={{ mr: 1 }} />
@@ -38,13 +43,13 @@ export default function DatetimeComponent({ lang }: { lang: string }) {
                             </Typography>
                         </Box>
                         <Typography variant="h5" sx={{ fontFamily: 'monospace' }}>
-                            {now?.toLocaleString()}
+                            {now ? now.toLocaleString() : '\u00A0'}
                         </Typography>
                     </CardContent>
                 </Card>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-                <Card variant="outlined">
+                <Card variant="outlined" sx={{ height: '100%' }}>
                     <CardContent>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                             <AccessTime color="primary" sx={{ mr: 1 }} />
@@ -53,15 +58,17 @@ export default function DatetimeComponent({ lang }: { lang: string }) {
                             </Typography>
                         </Box>
                         <Typography variant="h5" sx={{ fontFamily: 'monospace' }}>
-                            {timestamp}
+                            {timestamp ? timestamp : '\u00A0'}
                         </Typography>
                     </CardContent>
                 </Card>
             </Grid>
         </Grid>
 
+        <WorldClock lang={lang} />
         <YearProgress lang={lang} />
         <DateCalculator lang={lang} />
+        <LunarCalendar lang={lang} />
         <TimestampHelper lang={lang} />
     </div>
 }
@@ -84,11 +91,11 @@ const datetimeStyles = {
     pageTitle: css`
         font-size: 1.5rem;
         font-weight: bold;
-        margin-bottom: 1rem;
+        margin: 0 1rem;
     `,
     timestampTable: css`
         width: 100%;
-        margin-bottom: 1rem;
+        margin: 0 1rem 1rem 1rem;
         padding: 0;
         display: table;
         border-top: 0.25px solid #f0f0f0;
