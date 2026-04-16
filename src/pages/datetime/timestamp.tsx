@@ -57,7 +57,7 @@ export function TimestampHelper({lang}: { lang: string }) {
     </div>
 }
 
-function CopyButton({ text, lang }: { text: string, lang: string }) {
+export function CopyButton({ text, lang }: { text: string, lang: string }) {
     const [copied, setCopied] = useState(false);
     const handleCopy = () => {
         copyToClipboard(text);
@@ -128,12 +128,20 @@ function TimestampToDatetimeConverter({ lang }: { lang: string }) {
 }
 
 function DatetimeToTimestampConverter({ lang }: { lang: string }) {
-    const [input, setInput] = useState(new Date().toLocaleString().replace(/\//g, '-'));
+    const [selectedDate, setSelectedDate] = useState(() => {
+        const d = new Date();
+        return d.toISOString().split('T')[0];
+    });
+    const [selectedTime, setSelectedTime] = useState(() => {
+        const d = new Date();
+        return d.toTimeString().slice(0, 5);
+    });
     const [result, setResult] = useState({ s: '', ms: '' });
 
     useEffect(() => {
         try {
-            const date = new Date(input);
+            const dateTimeStr = `${selectedDate}T${selectedTime}`;
+            const date = new Date(dateTimeStr);
             if (!isNaN(date.getTime())) {
                 setResult({
                     s: Math.floor(date.getTime() / 1000).toString(),
@@ -143,19 +151,30 @@ function DatetimeToTimestampConverter({ lang }: { lang: string }) {
         } catch (e) {
             // ignore
         }
-    }, [input]);
+    }, [selectedDate, selectedTime]);
 
     return (
         <Paper elevation={0} variant="outlined" sx={{ p: 3, mb: 3 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <TextField
-                    fullWidth
-                    label={transKey(lang, "datetime.input.label")}
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="YYYY-MM-DD HH:mm:ss"
-                />
-                
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                    <TextField
+                        type="date"
+                        label={transKey(lang, "datetime.input.date") || "Date"}
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        InputLabelProps={{ shrink: true }}
+                        sx={{ flex: 1 }}
+                    />
+                    <TextField
+                        type="time"
+                        label={transKey(lang, "datetime.input.time") || "Time"}
+                        value={selectedTime}
+                        onChange={(e) => setSelectedTime(e.target.value)}
+                        InputLabelProps={{ shrink: true }}
+                        sx={{ flex: 1 }}
+                    />
+                </Box>
+
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1, bgcolor: 'action.hover', borderRadius: 1 }}>
                     <Box>
                         <Typography variant="caption" color="text.secondary">{transKey(lang, "timestamp.unit.seconds")}</Typography>

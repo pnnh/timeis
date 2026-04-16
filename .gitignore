@@ -192,3 +192,5 @@ dist
 .env*
 !.env.example
 .wrangler/
+
+.qoder/

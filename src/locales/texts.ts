@@ -144,6 +144,22 @@ export const TransTexts: {
         
         "pt": "Data e hora"
     },
+    "datetime.input.date": {
+        "zh": "日期",
+        "en": "Date",
+        "es": "Fecha",
+        "fr": "Date",
+        "ja": "日付",
+        "pt": "Data"
+    },
+    "datetime.input.time": {
+        "zh": "时间",
+        "en": "Time",
+        "es": "Hora",
+        "fr": "Heure",
+        "ja": "時刻",
+        "pt": "Hora"
+    },
     "common.copy": {
         "zh": "复制",
         "en": "Copy",
@@ -255,6 +271,15 @@ export const TransTexts: {
     "datetime.worldClock.dubai": { "zh": "迪拜 (GST)", "en": "Dubai (GST)", "es": "Dubái (GST)", "fr": "Dubaï (GST)", "ja": "ドバイ (GST)",  "pt": "Dubai (GST)" },
     "datetime.worldClock.tokyo": { "zh": "东京 (JST)", "en": "Tokyo (JST)", "es": "Tokio (JST)", "fr": "Tokyo (JST)", "ja": "東京 (JST)",  "pt": "Tóquio (JST)" },
     
+    // Date Format Options
+    "datetime.format.select": { "zh": "选择格式", "en": "Select Format", "es": "Seleccionar formato", "fr": "Sélectionner le format", "ja": "形式を選択", "pt": "Selecionar formato" },
+    "datetime.format.locale": { "zh": "本地格式", "en": "Locale String", "es": "Formato local", "fr": "Format local", "ja": "ロケール形式", "pt": "Formato local" },
+    "datetime.format.iso": { "zh": "ISO 8601", "en": "ISO 8601", "es": "ISO 8601", "fr": "ISO 8601", "ja": "ISO 8601", "pt": "ISO 8601" },
+    "datetime.format.rfc3339": { "zh": "RFC 3339", "en": "RFC 3339", "es": "RFC 3339", "fr": "RFC 3339", "ja": "RFC 3339", "pt": "RFC 3339" },
+    "datetime.format.utc": { "zh": "UTC 字符串", "en": "UTC String", "es": "Cadena UTC", "fr": "Chaîne UTC", "ja": "UTC文字列", "pt": "String UTC" },
+    "datetime.format.date": { "zh": "仅日期", "en": "Date Only", "es": "Solo fecha", "fr": "Date seulement", "ja": "日付のみ", "pt": "Somente data" },
+    "datetime.format.time": { "zh": "仅时间", "en": "Time Only", "es": "Solo hora", "fr": "Heure seulement", "ja": "時刻のみ", "pt": "Somente hora" },
+
     // Lunar Calendar
     "datetime.lunar.title": { "zh": "公农历转换查询", "en": "Lunar Calendar Converter", "es": "Calendario Lunar", "fr": "Calendrier lunaire", "ja": "旧暦変換",  "pt": "Calendário lunar" },
     "datetime.lunar.selectDate": { "zh": "选择日期", "en": "Select Date", "es": "Seleccionar fecha", "fr": "Sélectionner la date", "ja": "日付を選択",  "pt": "Selecionar data" },
